@@ -19,7 +19,6 @@ public class User {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to the PostgreSQL server successfully.");
             stmt = conn.createStatement();
-
             String sql = "CREATE TABLE USERS" +
                     "(id SERIAL not NULL, " +
                     " firstName VARCHAR(255) not NULL, " +

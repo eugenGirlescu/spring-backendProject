@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegisterController {
     @GetMapping("/register")
-    public String register(@RequestParam(name="name", required = false,defaultValue = "World")String name , Model model){
-                model.addAttribute("name",name);
+    public String register(){
                 return "register";
     }
 }
