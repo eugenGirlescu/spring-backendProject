@@ -1,38 +1,62 @@
 package com.example.demo;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.regex.Pattern;
 
 public class User {
+    private int id;
+    private  String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
-    private static final String url = "jdbc:postgresql://localhost/inchirieridb";
-    private static final String user = "postgres";
-    private static final String password = "ciuriburic1";
+    public User(String firstName, String lastName, String email,String password){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+    public int getId(){
+        return id;
+    }
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String getPassword(){
+        return password;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public boolean valid_firstName(String firstName){
+        return firstName.length() > 4;
+    }
 
-    public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
-
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to the PostgreSQL server successfully.");
-            stmt = conn.createStatement();
-            String sql = "CREATE TABLE USERS" +
-                    "(id SERIAL not NULL, " +
-                    " firstName VARCHAR(255) not NULL, " +
-                    " lastName VARCHAR(255) not NULL, " +
-                    " email VARCHAR(255) UNIQUE not NULL, " +
-                    " password VARCHAR(255) not NULL, " +
-                    " PRIMARY KEY ( id ))";
-
-            stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
+    public boolean valid_lastName(String lastName){
+        return lastName.length() > 4;
+    }
+    public boolean valid_email(String email){
+        Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
+        boolean valid = (email != null) && pattern.matcher(email).matches();
+        return valid;
+    }
+    public boolean valid_password(String password){
+        return password.length() > 4;
     }
 }
